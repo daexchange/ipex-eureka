@@ -14,7 +14,6 @@ spec:
       protocol: TCP
       port: 7000
       targetPort: 7000
-      nodePort: $NODEPORT
   selector:
     app: ipex-eureka
     version: v1
