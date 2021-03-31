@@ -33,21 +33,6 @@ spec:
             - name: tcp-7000
               protocol: TCP
               containerPort: 7000
-          env:
-            - name: enabled
-              value: $enabled
-            - name: app
-              value: $app
-            - name: env
-              value: $env
-            - name: protocol
-              value: $protocol
-            - name: host
-              value: $host
-            - name: port
-              value: $port
-            - name: path
-              value: $path
       serviceAccount: default
       affinity: {}
       initContainers: []
