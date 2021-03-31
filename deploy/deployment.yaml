@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: $namespace
+  labels:
+    version: v1
+    app: portalserver
+  name: portalserver-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      version: v1
+      app: portalserver
+  template:
+    metadata:
+      labels:
+        version: v1
+        app: portalserver
+    spec:
+      containers:
+        - name: portalserver
+          resources:
+            requests:
+              cpu: 200m
+              memory: 190Mi
+            limits:
+              cpu: 500m
+              memory: 800Mi
+          imagePullPolicy: IfNotPresent
+          image: APPIMAGEFLAG
+          ports:
+            - name: tcp-20880
+              protocol: TCP
+              containerPort: 20880
+            - name: tcp-8080
+              protocol: TCP
+              containerPort: 8080
+          env:
+            - name: enabled
+              value: $enabled
+            - name: app
+              value: $app
+            - name: env
+              value: $env
+            - name: protocol
+              value: $protocol
+            - name: host
+              value: $host
+            - name: port
+              value: $port
+            - name: path
+              value: $path
+            - name: zookeeperURL
+              value: $zookeeperURL
+            - name: DataBaseName
+              value: $DataBaseName
+      serviceAccount: default
+      affinity: {}
+      initContainers: []
+      volumes: []
+      imagePullSecrets:
+        - name: gb28181server
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%

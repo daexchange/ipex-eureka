@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: $namespace
+  labels:
+    version: v1
+    app: portalserver
+  annotations:
+    kubesphere.io/serviceType: statelessservice
+  name: portalserver
+spec:
+  ports:
+    - name: tcp-20880
+      protocol: TCP
+      port: 20880
+      targetPort: 20880
+    - name: tcp-8080
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: $NODEPORT
+  selector:
+    app: portalserver
+    version: v1
+  sessionAffinity: None
+  type: NodePort
