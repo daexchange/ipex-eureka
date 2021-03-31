@@ -4,22 +4,22 @@ metadata:
   namespace: $namespace
   labels:
     version: v1
-    app: portalserver
-  name: portalserver-v1
+    app: ipex-eureka
+  name: ipex-eureka-v1
 spec:
   replicas: 1
   selector:
     matchLabels:
       version: v1
-      app: portalserver
+      app: ipex-eureka
   template:
     metadata:
       labels:
         version: v1
-        app: portalserver
+        app: ipex-eureka
     spec:
       containers:
-        - name: portalserver
+        - name: ipex-eureka
           resources:
             requests:
               cpu: 200m
@@ -30,12 +30,9 @@ spec:
           imagePullPolicy: IfNotPresent
           image: APPIMAGEFLAG
           ports:
-            - name: tcp-20880
+            - name: tcp-7000
               protocol: TCP
-              containerPort: 20880
-            - name: tcp-8080
-              protocol: TCP
-              containerPort: 8080
+              containerPort: 7000
           env:
             - name: enabled
               value: $enabled
@@ -51,10 +48,6 @@ spec:
               value: $port
             - name: path
               value: $path
-            - name: zookeeperURL
-              value: $zookeeperURL
-            - name: DataBaseName
-              value: $DataBaseName
       serviceAccount: default
       affinity: {}
       initContainers: []
